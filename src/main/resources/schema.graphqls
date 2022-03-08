@@ -1,0 +1,25 @@
+type Query {
+    trainerByName(name: String): Trainer
+    allTrainers: [Trainer]
+    allSpecies: [Species]
+}
+
+type Trainer {
+    id: ID
+    name: String
+    pokemons: [Pokemon]
+}
+
+type Pokemon {
+    id: ID
+    name: String
+    trainer: Trainer
+    species: Species
+}
+
+type Species {
+    id: ID
+    name: String
+    type: String
+    pokemons: [Pokemon]
+}
