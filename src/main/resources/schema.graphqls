@@ -1,7 +1,9 @@
 type Query {
     trainerByName(name: String): Trainer
+    pokemonsBySpecies(type: String): [Pokemon]
     allTrainers: [Trainer]
     allSpecies: [Species]
+    allPokemons: [Pokemon]
 }
 
 type Trainer {

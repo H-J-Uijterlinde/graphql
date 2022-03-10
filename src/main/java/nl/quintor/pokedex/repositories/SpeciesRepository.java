@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface SpeciesRepository extends JpaRepository<Species, Long> {
     @Query("select p.species from Pokemon p where p = :pokemon")
     Optional<Species> findByPokemon(Pokemon pokemon);
+
+    Optional<Species> findByType(String speciesType);
 }

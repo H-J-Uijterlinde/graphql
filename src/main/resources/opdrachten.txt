@@ -1,0 +1,43 @@
+1. Stel zelf een schema op.
+
+2. Voeg voor het pokemon model een type toe aan het schema
+
+3. Voeg een query type toe aan het schema met 1 veld voor het ophalen van alle pokemons.
+
+4. Maak een Query Data Fetcher en voeg hier het ophalen van alle pokemons aan toe.
+
+5. Koppel de zojuist gemaakte functionaliteit aan door een runtimewiring toe te voegen in je configuratie.
+
+6. Configureer de playground
+
+7. Navigeer naar de playground in je browser en test je query uit
+
+8. Voeg het type Species toe aan je schema en zorg dat Pokemons een species kunnen hebben en Species pokemon kan bevatten.
+
+9. Maak een Pokemon Resolver en zorg dat je de Species van een pokemon kunt ophalen.
+
+10. Maak een Species Resolver en zorg dat je de Pokemon van een Species kunt ophalen.
+
+11. Update je runtimewiring in je configuratie
+
+12. Test in je playground om nu pokemon > species > pokemon > species
+
+13. Voeg het type Trainer toe aan je schema en zorg dat een Trainer pokemons kan hebben en een pokemon bij 1 trainer kan horen.
+
+14. Maak een Trainer resolver en zorg dat je de pokemon van een Trainer kan ophalen
+
+15. Voeg een pokemon resolver toe en zorg dat je de trainer van een pokemon kan ophalen.
+
+16. Update je runtimewiring in je configuratie
+
+17. Test in je playground om nu pokemon > trainer > pokemon > trainer
+
+18. Voeg een query toe om de Trainer op basis van naam op te halen.
+
+19. Breid je playground uit en voeg een tabje Trainer toe.
+
+20. Maak een trainer_query.graphqls file en zet hier een voorgedefinieerde query in.
+
+21 tm ... Maak mutation resolvers. Maak een trainer. Voeg pokemons toe aan... Verander de trainer naam.. etc
+
+Subscriptions
