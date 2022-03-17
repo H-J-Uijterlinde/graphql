@@ -19,10 +19,12 @@ We gaan een begin maken met ons GraphQL schema. Voeg daarvoor een file genaamd `
 Voeg voor de pokemon entiteit een type toe aan het schema, maar nog zonder de relaties met Trainer en Species.
 
 
+### B. Voeg een query type toe aan het schema met 1 veld voor het ophalen van alle pokemons.
 
 Binnen GraphQL is de conventie om al je queries binnen het type Query onder te brengen. Voeg dit type toe aan je schema, en definieer daarin een query voor het ophalen van alle pokemon. De return type van deze query is een lijst van objecten van het type pokemon (die we net hebben aangemaakt).
 
-### B. Voeg een query type toe aan het schema met 1 veld voor het ophalen van alle pokemons.
+
+### C. Bouw een resolver voor de query die we zojuist hebben gedefinieerd.
 
 In graphQL wordt het daadwerkelijk ophalen van data gedaan door resolvers. Dit geld uiteraard voor queries zelf. Maar ook voor het ophalen van bepaalde velden van andere types, zoals bijvoorbeeld het ophalen van alle pokemons van een trainer, zoals we straks nog zullen zien.
 
@@ -30,12 +32,9 @@ In deze opdracht gaan we voor de query om alle pokemons op te halen een resolver
 
 Het GraphQL-Java project gebruikt voor resolvers het woord datafetchers. Dit is wat verwarrend, maar er wordt hetzelfde mee bedoeld.
 
-### C. Bouw een resolver voor de query die we zojuist hebben gedefinieerd.
-
 Wij hebben ervoor gekozen om resolvers (DataFetchers) onder te brengen in een class voor het type waarvoor ze een veld resolven, dus bijvoorbeeld de class QueryResolvers. Maar waar je ze definieert maakt uiteindelijk niet zoveel uit.
 
 Definieer een functie die een DataFetcher voor een lijst van Pokemon returned. Zie https://www.graphql-java.com/documentation/data-fetching voor een voorbeeld. DataFetcher is een functional interface, dus je kunt er ook voor kiezen om een lambda te returnen in plaats van een anonymous class.
-
 
 
 ### D. Koppel de zojuist gemaakte functionaliteit aan door een runtimewiring toe te voegen in je configuratie.
