@@ -1,0 +1,12 @@
+mutation createNewPokemon($pokemonName: String!, $trainerName: String!,  $type: String!) {
+  createPokemon(pokemonName: $pokemonName, trainerName: $trainerName, type: $type) {
+  	id
+    name
+    trainer {
+      name
+    }
+    species {
+      type
+    }
+  }
+}

@@ -68,7 +68,12 @@ public class GraphQLConfiguration {
         playgroundPokemonTab.setQuery(resourceLoader.getResource("classpath:playground/pokemon_query.graphqls"));
         playgroundPokemonTab.setVariables(resourceLoader.getResource("classpath:playground/pokemons.json"));
 
-        return List.of(playgroundTrainerTab, playgroundPokemonTab);
+        var playgroundPokemonMutationTab = new PlaygroundTab();
+        playgroundPokemonMutationTab.setName("Create Pokemon");
+        playgroundPokemonMutationTab.setQuery(resourceLoader.getResource("classpath:playground/pokemon_mutation.graphqls"));
+        playgroundPokemonMutationTab.setVariables(resourceLoader.getResource("classpath:playground/pokemon_mutation.json"));
+
+        return List.of(playgroundTrainerTab, playgroundPokemonTab, playgroundPokemonMutationTab);
     }
 
     /**
@@ -103,6 +108,8 @@ public class GraphQLConfiguration {
                 .type(newTypeWiring("Pokemon")
                         .dataFetcher("trainer", pokemonDataFetchers.getTrainerByPokemon())
                         .dataFetcher("species", pokemonDataFetchers.getSpeciesByPokemon()))
+                .type(newTypeWiring("Mutation")
+                        .dataFetcher("createPokemon", pokemonDataFetchers.createPokemon()))
                 .build();
     }
 }

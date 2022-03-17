@@ -6,6 +6,14 @@ type Query {
     allPokemons: [Pokemon]
 }
 
+type Mutation {
+    createPokemon(pokemonName: String!, trainerName: String!, type: String!): Pokemon!
+}
+
+type Subscription {
+    pokemons: Pokemon!
+}
+
 type Trainer {
     id: ID
     name: String
