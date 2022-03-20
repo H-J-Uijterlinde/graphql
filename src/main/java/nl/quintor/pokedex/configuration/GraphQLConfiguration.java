@@ -8,10 +8,7 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import lombok.RequiredArgsConstructor;
-import nl.quintor.pokedex.datafetchers.PokemonDataFetchers;
-import nl.quintor.pokedex.datafetchers.QueryDataFetchers;
-import nl.quintor.pokedex.datafetchers.SpeciesDataFetchers;
-import nl.quintor.pokedex.datafetchers.TrainerDataFetchers;
+import nl.quintor.pokedex.datafetchers.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,6 +23,7 @@ public class GraphQLConfiguration {
     private final TrainerDataFetchers trainerDataFetchers;
     private final PokemonDataFetchers pokemonDataFetchers;
     private final SpeciesDataFetchers speciesDataFetchers;
+    private final MutationResolvers mutationResolvers;
 
     @Bean
     public GraphQL graphQL() throws IOException {
@@ -55,6 +53,10 @@ public class GraphQLConfiguration {
                 .type(newTypeWiring("Pokemon")
                         .dataFetcher("trainer", pokemonDataFetchers.getTrainerByPokemon())
                         .dataFetcher("species", pokemonDataFetchers.getSpeciesByPokemon()))
+                .type(newTypeWiring("Mutation")
+                        .dataFetcher("createSpecies", mutationResolvers.createSpecies())
+                        .dataFetcher("createTrainer", mutationResolvers.createTrainer())
+                        .dataFetcher("catchPokemon", mutationResolvers.catchPokemon()))
                 .build();
     }
 }

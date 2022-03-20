@@ -2,8 +2,8 @@ package nl.quintor.pokedex.datafetchers;
 
 import graphql.schema.DataFetcher;
 import lombok.RequiredArgsConstructor;
-import nl.quintor.pokedex.model.Pokemon;
-import nl.quintor.pokedex.model.Trainer;
+import nl.quintor.pokedex.model.types.Pokemon;
+import nl.quintor.pokedex.model.types.Trainer;
 import nl.quintor.pokedex.repositories.PokemonRepository;
 import org.springframework.stereotype.Component;
 

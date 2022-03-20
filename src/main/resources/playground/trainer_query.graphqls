@@ -1,0 +1,8 @@
+query GET_TRAINER_BY_NAME($name: String) {
+    trainerByName(name: $name) {
+        pokemons {
+            id
+            name
+        }
+    }
+}

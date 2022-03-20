@@ -1,10 +1,10 @@
 insert into species
-    values (1, 'Pikachu', 'Electric'),
-           (2, 'Squirtle', 'Water'),
-           (3, 'Charmander', 'Fire'),
-           (4, 'Bulbasaur', 'Grass'),
-           (5, 'Onix', 'Stone'),
-           (6, 'Staryu', 'Water');
+    values (1, 'Pikachu', 'ELECTRIC'),
+           (2, 'Squirtle', 'WATER'),
+           (3, 'Charmander', 'FIRE'),
+           (4, 'Bulbasaur', 'GRASS'),
+           (5, 'Onix', 'GROUND'),
+           (6, 'Staryu', 'WATER');
 
 insert into trainer
     values (1, 'Ash Ketchum'),

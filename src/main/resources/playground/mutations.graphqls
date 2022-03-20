@@ -1,0 +1,27 @@
+mutation createSpecies($species: CreateSpeciesInput!) {
+    createSpecies(species: $species) {
+        id
+        name
+    }
+}
+
+mutation createTrainer($trainer: CreateTrainerInput!) {
+    createTrainer(trainer: $trainer) {
+        id
+        name
+    }
+}
+
+mutation catchPokemon($trainerId: ID!, $pokemon: CreatePokemonInput!) {
+    catchPokemon(trainerId: $trainerId, pokemon: $pokemon) {
+        id
+        name
+        pokemons {
+            id
+            name
+            species {
+                name
+            }
+        }
+    }
+}

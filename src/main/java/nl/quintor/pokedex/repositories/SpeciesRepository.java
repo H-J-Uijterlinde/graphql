@@ -1,7 +1,7 @@
 package nl.quintor.pokedex.repositories;
 
-import nl.quintor.pokedex.model.Pokemon;
-import nl.quintor.pokedex.model.Species;
+import nl.quintor.pokedex.model.types.Pokemon;
+import nl.quintor.pokedex.model.types.Species;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

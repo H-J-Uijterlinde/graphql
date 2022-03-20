@@ -1,20 +1,20 @@
-package nl.quintor.pokedex.model;
+package nl.quintor.pokedex.model.types;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
 @Entity
-public class Trainer {
+public class Pokemon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, unique = true)
     private String name;
-    @OneToMany(mappedBy = "trainer")
-    private List<Pokemon> pokemons;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Species species;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Trainer trainer;
 }

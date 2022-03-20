@@ -1,0 +1,12 @@
+query GET_POKEMONS {
+    allPokemons {
+        id
+        name
+    }
+}
+
+query GET_POKEMONS_BY_SPECIES($type: String) {
+    pokemonsBySpecies(type: $type) {
+        name
+    }
+}
