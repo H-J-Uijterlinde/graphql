@@ -38,3 +38,31 @@ Definieer een functie die een DataFetcher voor een lijst van Pokemon returned. Z
 
 
 ### D. Koppel de zojuist gemaakte functionaliteit aan door een runtimewiring toe te voegen in je configuratie.
+
+We hebben nu een schema en we hebben een resolver om een veld uit ons schema te resolven. De volgende stap is het koppelen van onze resolver aan ons schema veld. 
+
+De GraphQL-Java library die wij gebruiken ondersteund twee manieren voor het creeren van een schema, door middel van SDL (Schema Definition Language) of programmatisch. Wij hebben ervoor gekozen om gebruikt te maken van SDL door het schema expliciet vast te leggen in een schema.graphqls file. 
+
+GraphQL-Java maakt gebruikt van zogenaamde runtimewiring om het schema, en de implementatie daarvan aan elkaar te koppelen. 
+
+Voeg de volgende configuratie toe aan je project:
+```
+    @Bean
+    public GraphQL graphQL() throws IOException {
+        var url = Resources.getResource("schema.graphqls");
+        var sdl = Resources.toString(url, Charsets.UTF_8);
+        var graphQLSchema = buildSchema(sdl);
+        return GraphQL.newGraphQL(graphQLSchema).build();
+    }
+
+    private GraphQLSchema buildSchema(String sdl) {
+        var typeRegistry = new SchemaParser().parse(sdl);
+        var runtimeWiring = buildWiring();
+        var schemaGenerator = new SchemaGenerator();
+        return schemaGenerator.makeExecutableSchema(typeRegistry, runtimeWiring);
+    }
+```
+
+Zoals je ziet zul je zelf nog de `buildWiring()` methode moeten implementeren, die een `RuntimeWiring` moet returnen. Zie https://www.graphql-java.com/documentation/schema#creating-a-schema-using-the-sdl voor een voorbeeld.
+
+naar [Opdracht 2](https://git.quintor.nl/staq/graphql-staq-2022/-/edit/opdrachten/2/readme.md)
