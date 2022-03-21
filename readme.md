@@ -1,40 +1,31 @@
-In deze hands on gaan we de backend voor een PokeDex bouwen. Omdat we verwachten dat er in de loop van de tijd heel veel specifieke wensen vanuit de client gaan komen betreft de data die ze nodig hebben, is besloten om de data te onstluiten middels een GraphQL API.
-
-De kern van ons model is simpel. Wij als pokemon trainers kunnen pokemons vangen, die pokemons kunnen we een naam geven, en deze pokemons zijn van een bepaalde soort (Pikachu, Charmander, etc..). We hebben dus drie classes in ons model; Trainer, Pokemon en Species.
-
-Een trainer kan meerdere pokemon hebben, een pokemon kan maar van een trainer zijn, en maar van een soort. Van een bepaalde soort kunnen er meerdere pokemons op de wereld rond lopen.
-
-Voor deze opdrachten gaan we gebruik maken van Java om onze GraphQL API te implementeren. We maken daarbij ook gebruik van het GraphQL-Java project, maar we gaan zo weinig mogelijk abstracties gebruiken om een beter beeld te krijgen van de verschillende aspecten van een GraphQL API.
+Om real-time je GraphQL queries te testen gaan we onze eigen playground optuigen. De naam zegt het al; het is een plek om met je queries te spelen. Hiermee kan je direct zien of de structuur van je query goed is of je kan de query laten uitvoeren om de resultaten in te zien.
 
 # Opdrachten
 
-## 1. Implementeer een methode voor het ophalen van alle pokemon.
+## 2. Configureer de playground.
 
-De kern van GraphQL is het GraphQL schema. Het schema is als het ware de documentatie van de API en beschrijft welke operaties er allemaal mogelijk zijn, en welke data beschikbaar is.
+### A. Maak een PlaygroundController configuration bean aan
 
-### A. Voeg voor de pokemon entiteit een type toe aan het schema
+Om de PlaygroundController aan te kunnen maken zullen we eerst een dependency moeten toevoegen. 
+Voeg de `com.graphql-java-kickstart:graphql-spring-boot-starter` dependency toe aan je dependencies. 
 
-We gaan een begin maken met ons GraphQL schema. Voeg daarvoor een file genaamd `schema.graphqls` toe aan de resources van je project.
+Maak een playground configuration class aan en definieer hier een PlaygroundController bean.
 
-Voeg voor de pokemon entiteit een type toe aan het schema, maar nog zonder de relaties met Trainer en Species.
+### B. Navigeer naar je playground en test je query uit
 
+Wanneer je de playground geconfigureerd hebt kan je deze benaderen door te navigeren naar http://localhost:8080/playground.
+Dit is een grafische interface om GraphQL queries te testen!
 
-### B. Voeg een query type toe aan het schema met 1 veld voor het ophalen van alle pokemons.
+### C. Voeg een PlaygroundTab toe aan je controller.
 
-Binnen GraphQL is de conventie om al je queries binnen het type Query onder te brengen. Voeg dit type toe aan je schema, en definieer daarin een query voor het ophalen van alle pokemon. De return type van deze query is een lijst van objecten van het type pokemon (die we net hebben aangemaakt).
+We kunnen de playground onderverdelen in meerdere tabs indien gewenst. Je zou bijvoorbeeld per entiteit een tabblad kunnen maken, het is maar net wat jij wil!
 
+In een playground tab kunnen we een query file opgeven met een bijbehorende variabelen file.
+In deze files kan je queries schrijven die automatisch in je tabblad getoont worden. 
 
-### C. Bouw een resolver voor de query die we zojuist hebben gedefinieerd.
+Maak hiervoor de `playground_queries.graphqls` file aan en plaats deze in `resources/playground`.
+Je kan hier een zelf gedefinieerde query schrijven die jouw query aanroept in je schema van opdracht 1.
 
-In graphQL wordt het daadwerkelijk ophalen van data gedaan door resolvers. Dit geld uiteraard voor queries zelf. Maar ook voor het ophalen van bepaalde velden van andere types, zoals bijvoorbeeld het ophalen van alle pokemons van een trainer, zoals we straks nog zullen zien.
+### D. Navigeer naar je playground en test je automatisch getoonde query uit
 
-In deze opdracht gaan we voor de query om alle pokemons op te halen een resolver schrijven, en we gaan deze resolver aan het juiste veld in ons GraphQL schema koppelen.
-
-Het GraphQL-Java project gebruikt voor resolvers het woord datafetchers. Dit is wat verwarrend, maar er wordt hetzelfde mee bedoeld.
-
-Wij hebben ervoor gekozen om resolvers (DataFetchers) onder te brengen in een class voor het type waarvoor ze een veld resolven, dus bijvoorbeeld de class QueryResolvers. Maar waar je ze definieert maakt uiteindelijk niet zoveel uit.
-
-Definieer een functie die een DataFetcher voor een lijst van Pokemon returned. Zie https://www.graphql-java.com/documentation/data-fetching voor een voorbeeld. DataFetcher is een functional interface, dus je kunt er ook voor kiezen om een lambda te returnen in plaats van een anonymous class.
-
-
-### D. Koppel de zojuist gemaakte functionaliteit aan door een runtimewiring toe te voegen in je configuratie.
+Navigeer naar je playground. Je zult nu zien dat je query die gedefinieerd is in `playground_queries.graphqls` getoont wordt in je tabblad.
