@@ -1,0 +1,15 @@
+### De naam van de query maakt niet uit, het gaat erom dat jouw query in je schema.graphqls aangeroepen wordt.
+query GET_POKEMONS {
+    allPokemon {
+        id
+        name
+    }
+}
+
+query GET_POKEMONS_WITHOUT_ID {
+    allPokemon {
+        name
+    }
+}
+
+
