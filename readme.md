@@ -65,4 +65,4 @@ Voeg de volgende configuratie toe aan je project:
 
 Zoals je ziet zul je zelf nog de `buildWiring()` methode moeten implementeren, die een `RuntimeWiring` moet returnen. Zie https://www.graphql-java.com/documentation/schema#creating-a-schema-using-the-sdl voor een voorbeeld.
 
-naar [Opdracht 2](https://git.quintor.nl/staq/graphql-staq-2022/-/edit/opdrachten/2/readme.md)
+naar [Opdracht 2](https://git.quintor.nl/staq/graphql-staq-2022/-/blob/opdrachten/2/readme.md)
