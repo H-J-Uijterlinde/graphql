@@ -2,6 +2,7 @@ package nl.quintor.pokedex.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import nl.quintor.pokedex.model.enums.PokemonType;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,8 +16,9 @@ public class Species {
     private Long id;
     @Column(unique = true, nullable = false)
     private String name;
+    @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
-    private String type;
+    private PokemonType type;
     @OneToMany(mappedBy = "species")
     private List<Pokemon> pokemons;
 }
