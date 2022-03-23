@@ -9,6 +9,7 @@ import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import lombok.RequiredArgsConstructor;
 import nl.quintor.pokedex.resolvers.QueryResolvers;
+import nl.quintor.pokedex.resolvers.TrainerResolvers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,6 +21,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 @Configuration
 public class GraphQLConfiguration {
     private final QueryResolvers queryResolvers;
+    private final TrainerResolvers trainerResolvers;
 
     @Bean
     public GraphQL graphQL() throws IOException {
@@ -39,7 +41,11 @@ public class GraphQLConfiguration {
     private RuntimeWiring buildWiring() {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
-                        .dataFetcher("allPokemon", queryResolvers.getAllPokemon()))
+                        .dataFetcher("allPokemon", queryResolvers.getAllPokemon())
+                        .dataFetcher("allTrainers", queryResolvers.getAllTrainers())
+                        .dataFetcher("trainerByName", queryResolvers.getTrainerByName()))
+                .type(newTypeWiring("Trainer")
+                        .dataFetcher("pokemons", trainerResolvers.getPokemonByTrainer()))
                 .build();
     }
 }

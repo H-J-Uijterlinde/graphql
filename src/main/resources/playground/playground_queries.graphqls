@@ -12,4 +12,26 @@ query GET_POKEMONS_WITHOUT_ID {
     }
 }
 
+query GET_TRAINERS {
+    allTrainers {
+        id
+        name
+        pokemons {
+            id
+            name
+        }
+    }
+}
+
+query GET_TRAINER_BY_NAME($trainerName: String) {
+    trainerByName(name: $trainerName) {
+        pokemons {
+            id
+            name
+        }
+    }
+}
+
+
+
 

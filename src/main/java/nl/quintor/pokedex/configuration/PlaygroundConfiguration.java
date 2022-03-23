@@ -29,6 +29,7 @@ public class PlaygroundConfiguration {
         var playgroundPokemonTab = new PlaygroundTab();
         playgroundPokemonTab.setName("Queries");
         playgroundPokemonTab.setQuery(resourceLoader.getResource("classpath:playground/playground_queries.graphqls"));
+        playgroundPokemonTab.setVariables(resourceLoader.getResource("classpath:playground/variables.json"));
 
         return List.of(playgroundPokemonTab);
     }
