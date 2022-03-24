@@ -2,30 +2,30 @@ Om real-time je GraphQL queries te testen gaan we onze eigen playground optuigen
 
 # Opdrachten
 
-## 2. Configureer de playground.
+## 3. Maak een TrainerResolver
 
-### A. Maak een PlaygroundController configuration bean aan
+### A. Voeg een Trainer type toe aan je schema en pas de Runtime Wiring aan
 
-Om de PlaygroundController aan te kunnen maken zullen we eerst een dependency moeten toevoegen. 
-Voeg de `com.graphql-java-kickstart:graphql-spring-boot-starter` dependency toe aan je dependencies. 
+Voeg net als Pokemon en Species een nieuw type toe aan je schema en verwerk deze in je Runtime Wiring configuratie.
 
-Maak een playground configuration class aan en definieer hier een PlaygroundController bean.
+### B. Maak een Trainer Resolver en zorg dat je alle pokemon van een bepaalde trainer kan ophalen.
 
-### B. Navigeer naar je playground en test je query uit
+Wanneer je de resolver gemaakt hebt, kan je de werking verifieren door in je playground alle trainers op te halen. 
+Momenteel haalt de query allTrainers alleen de velden id en name op. Je kan hier bijvoorbeeld het veld `pokemons { name }` aan toevoegen.
 
-Wanneer je de playground geconfigureerd hebt kan je deze benaderen door te navigeren naar http://localhost:8080/playground.
-Dit is een grafische interface om GraphQL queries te testen!
+### C. Voeg een nieuwe functie toe aan je Query Resolver om een trainer op naam op te kunnen halen.
 
-### C. Voeg een PlaygroundTab toe aan je controller.
+Je kan in je GraphQL query een argument (parameter) meegeven in je query. Deze kan je in een resolver ophalen met de `getArgument("argumentNaam")` methode.
+Wanneer je een methode gemaakt hebt om een trainer op basis van naam te resolven, kan je deze testen in je playground!
 
-We kunnen de playground onderverdelen in meerdere tabs indien gewenst. Je zou bijvoorbeeld per entiteit een tabblad kunnen maken, het is maar net wat jij wil!
+### D. Breid je playground uit
 
-In een playground tab kunnen we een query file opgeven met een bijbehorende variabelen file.
-In deze files kan je queries schrijven die automatisch in je tabblad getoont worden. 
+We kunnen de query van opdracht C ook laten tonen bij het openen van de playground net als je bij de andere queries gewend bent.
+Echter, deze query bevat nu een argument en die zullen we ergens vandaan moeten halen. Maak hiervoor een `variables.json` file aan en plaats deze in je `resources/playground`. Voeg hier een entry aan toe bijvoorbeeld 
+`{
+"trainerName": "Brock"
+}`
 
-Maak hiervoor de `playground_queries.graphqls` file aan en plaats deze in `resources/playground`.
-Je kan hier een zelf gedefinieerde query schrijven die jouw query aanroept in je schema van opdracht 1.
+Pas je playground configuratie aan, zodat de file bekend is in je PlaygroundTab. Pas vervolgens ook je `playground_queries.graphqls` file aan en verwerk je functie uit opdracht C in dit schema.
 
-### D. Navigeer naar je playground en test je automatisch getoonde query uit
-
-Navigeer naar je playground. Je zult nu zien dat je query die gedefinieerd is in `playground_queries.graphqls` getoont wordt in je tabblad.
+Navigeer naar je playground. Bij het uitvoeren van je nieuwe query zal de playground jouw variabele vervangen met de variabele uit de json file!
