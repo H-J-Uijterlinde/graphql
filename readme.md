@@ -20,7 +20,7 @@ Dit is een grafische interface om GraphQL queries te testen!
 
 We kunnen de playground onderverdelen in meerdere tabs indien gewenst. Je zou bijvoorbeeld per entiteit een tabblad kunnen maken, het is maar net wat jij wil!
 
-In een playground tab kunnen we een query file opgeven met een bijbehorende variabelen file.
+In een playground tab kunnen we een query file opgeven.
 In deze files kan je queries schrijven die automatisch in je tabblad getoont worden. 
 
 Maak hiervoor de `playground_queries.graphqls` file aan en plaats deze in `resources/playground`.
@@ -29,3 +29,4 @@ Je kan hier een zelf gedefinieerde query schrijven die jouw query aanroept in je
 ### D. Navigeer naar je playground en test je automatisch getoonde query uit
 
 Navigeer naar je playground. Je zult nu zien dat je query die gedefinieerd is in `playground_queries.graphqls` getoont wordt in je tabblad.
+Verifieer dat je bij het aanroepen van allPokemon op dit moment drie pokemon als resultaat krijgt.
