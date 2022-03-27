@@ -47,30 +47,9 @@ public class GraphQLConfiguration {
         return schemaGenerator.makeExecutableSchema(typeRegistry, runtimeWiring);
     }
 
-    @Bean
-    @Primary
-    public GraphQLInvocation graphQLInvocation() throws Exception {
-        return (invocationData, webRequest) -> {
-            ExecutionInput executionInput = ExecutionInput.newExecutionInput()
-                    .query(invocationData.getQuery())
-                    .context(webRequest)
-                    .operationName(invocationData.getOperationName())
-                    .variables(invocationData.getVariables())
-                    .build();
-            System.out.println(webRequest.getHeader("role"));
-            System.out.println("hello");
-
-            try {
-                return graphQL().executeAsync(executionInput);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
-        };
-    }
-
     private RuntimeWiring buildWiring() {
         return RuntimeWiring.newRuntimeWiring()
+                .directive("auth", authDirective)
                 .type(newTypeWiring("Query")
                         .dataFetcher("allPokemon", queryResolvers.getAllPokemon())
                         .dataFetcher("speciesByType", queryResolvers.speciesByType())
@@ -86,7 +65,6 @@ public class GraphQLConfiguration {
                         .dataFetcher("createSpecies", mutationResolvers.createSpecies())
                         .dataFetcher("createTrainer", mutationResolvers.createTrainer())
                         .dataFetcher("catchPokemon", mutationResolvers.catchPokemon()))
-                .directive("auth", authDirective)
                 .build();
     }
 }
