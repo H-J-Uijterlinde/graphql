@@ -9,6 +9,7 @@ type Pokemon {
     id: ID
     name: String
     species: Species
+    trainer: Trainer
 }
 
 type Species {

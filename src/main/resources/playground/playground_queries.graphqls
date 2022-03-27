@@ -2,6 +2,9 @@ query GET_POKEMONS {
     allPokemon {
         id
         name
+        trainer {
+            name
+        }
     }
 }
 
