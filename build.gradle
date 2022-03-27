@@ -28,6 +28,12 @@ dependencies {
 	implementation 'com.graphql-java:graphql-java'
 	implementation 'com.graphql-java:graphql-java-spring-boot-starter-webmvc:2.0'
 	implementation 'io.projectreactor:reactor-core:3.3.16.RELEASE'
+	implementation 'com.graphql-java:graphql-java-servlet:6.1.0'
+
+	// Security
+	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'com.auth0:java-jwt:3.8.3'
+
 
 	// Guava
 	implementation 'com.google.guava:guava:26.0-jre'

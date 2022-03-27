@@ -3,7 +3,9 @@ package nl.quintor.pokedex.configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
+import graphql.ExecutionInput;
 import graphql.GraphQL;
+import graphql.execution.ExecutionStrategy;
 import graphql.kickstart.autoconfigure.editor.playground.PlaygroundController;
 import graphql.kickstart.autoconfigure.editor.playground.properties.PlaygroundProperties;
 import graphql.kickstart.autoconfigure.editor.playground.properties.PlaygroundTab;
@@ -45,7 +47,28 @@ public class GraphQLConfiguration {
         var url = Resources.getResource("schema.graphqls");
         var sdl = Resources.toString(url, Charsets.UTF_8);
         var graphQLSchema = buildSchema(sdl);
-        return GraphQL.newGraphQL(graphQLSchema).build();
+
+        //ExecutionInput executionInput = ExecutionInput.newExecutionInput().context(authContext).build();
+        GraphQL graphQL = GraphQL.newGraphQL(graphQLSchema).build();
+        return graphQL;
+    }
+
+    String query = "";
+    void contextWiring() {
+
+        AuthContext authContext = new AuthContext();
+
+        ExecutionInput executionInput = ExecutionInput.newExecutionInput()
+                .query(query)
+                .graphQLContext(builder -> builder.put("authContext", authContext))
+                .build();
+    }
+
+    @Bean
+    public GraphQLSchema graphQLSchema() throws IOException {
+        var url = Resources.getResource("schema.graphqls");
+        var sdl = Resources.toString(url, Charsets.UTF_8);
+        return buildSchema(sdl);
     }
 
     @Bean
@@ -95,6 +118,7 @@ public class GraphQLConfiguration {
 
     private RuntimeWiring buildWiring() {
         return RuntimeWiring.newRuntimeWiring()
+                .directive("auth", new AuthorizationDirective())
                 .type(newTypeWiring("Query")
                         .dataFetcher("trainerByName", queryDataFetchers.getTrainerByName())
                         .dataFetcher("allTrainers", queryDataFetchers.getAllTrainers())

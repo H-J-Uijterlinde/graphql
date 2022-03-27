@@ -1,3 +1,5 @@
+directive @auth(role : String!) on FIELD_DEFINITION
+
 type Query {
     trainerByName(name: String): Trainer
     pokemonsBySpecies(type: String): [Pokemon]
@@ -23,6 +25,7 @@ type Trainer {
 type Pokemon {
     id: ID
     name: String
+    experience: Int @auth(role: "trainer")
     trainer: Trainer
     species: Species
 }

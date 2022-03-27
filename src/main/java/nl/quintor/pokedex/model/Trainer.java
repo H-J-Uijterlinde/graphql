@@ -17,5 +17,8 @@ public class Trainer {
     private String name;
     @OneToMany(mappedBy = "trainer")
     private List<Pokemon> pokemons;
+
+    @ElementCollection
+    private List<String> roles;
 }
 
