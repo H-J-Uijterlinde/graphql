@@ -8,10 +8,7 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import lombok.RequiredArgsConstructor;
-import nl.quintor.pokedex.resolvers.PokemonResolvers;
-import nl.quintor.pokedex.resolvers.SpeciesResolvers;
-import nl.quintor.pokedex.resolvers.QueryResolvers;
-import nl.quintor.pokedex.resolvers.TrainerResolvers;
+import nl.quintor.pokedex.resolvers.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,6 +23,7 @@ public class GraphQLConfiguration {
     private final TrainerResolvers trainerResolvers;
     private final SpeciesResolvers speciesResolvers;
     private final PokemonResolvers pokemonResolvers;
+    private final MutationResolvers mutationResolvers;
 
     @Bean
     public GraphQL graphQL() throws IOException {
@@ -55,7 +53,10 @@ public class GraphQLConfiguration {
                         .dataFetcher("pokemons", speciesResolvers.getPokemonBySpecies()))
                 .type(newTypeWiring("Pokemon")
                         .dataFetcher("species", pokemonResolvers.getSpeciesByPokemon()))
-
+                .type(newTypeWiring("Mutation")
+                        .dataFetcher("createSpecies", mutationResolvers.createSpecies())
+                        .dataFetcher("createTrainer", mutationResolvers.createTrainer())
+                        .dataFetcher("catchPokemon", mutationResolvers.catchPokemon()))
                 .build();
     }
 }

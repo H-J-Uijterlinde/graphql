@@ -5,6 +5,26 @@ type Query {
     speciesByType(type: PokemonType): [Species]
 }
 
+type Mutation {
+    createSpecies(species: CreateSpeciesInput!): Species
+    createTrainer(trainer: CreateTrainerInput!): Trainer
+    catchPokemon(trainerId: ID!, pokemon: CreatePokemonInput!): Trainer
+}
+
+input CreateSpeciesInput {
+    name: String!
+    type: PokemonType!
+}
+
+input CreateTrainerInput {
+    name: String!
+}
+
+input CreatePokemonInput {
+    name: String!
+    speciesId: ID!
+}
+
 type Pokemon {
     id: ID
     name: String

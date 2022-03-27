@@ -31,6 +31,10 @@ public class PlaygroundConfiguration {
         playgroundPokemonTab.setQuery(resourceLoader.getResource("classpath:playground/playground_queries.graphqls"));
         playgroundPokemonTab.setVariables(resourceLoader.getResource("classpath:playground/variables.json"));
 
-        return List.of(playgroundPokemonTab);
+        var mutationTab = new PlaygroundTab();
+        mutationTab.setName("Mutations");
+        mutationTab.setQuery(resourceLoader.getResource("classpath:playground/mutations.graphqls"));
+
+        return List.of(playgroundPokemonTab, mutationTab);
     }
 }

@@ -15,6 +15,11 @@ public class Trainer {
     private Long id;
     @Column(nullable = false, unique = true)
     private String name;
-    @OneToMany(mappedBy = "trainer")
+    @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL)
     private List<Pokemon> pokemons;
+
+    public void addPokemon(Pokemon pokemon) {
+        pokemon.setTrainer(this);
+        this.getPokemons().add(pokemon);
+    }
 }
