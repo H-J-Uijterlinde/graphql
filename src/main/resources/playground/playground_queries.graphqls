@@ -1,4 +1,3 @@
-### De naam van de query maakt niet uit, het gaat erom dat jouw query in je schema.graphqls aangeroepen wordt.
 query GET_POKEMONS {
     allPokemon {
         id
@@ -6,9 +5,14 @@ query GET_POKEMONS {
     }
 }
 
-query GET_POKEMONS_WITHOUT_ID {
-    allPokemon {
+query SPECIES_BY_TYPE($type: PokemonType) {
+    speciesByType(type: $type) {
+        id
         name
+        type
+        pokemons {
+            name
+        }
     }
 }
 
