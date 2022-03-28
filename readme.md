@@ -1,7 +1,3 @@
-Om real-time je GraphQL queries te testen gaan we onze eigen playground optuigen. De naam zegt het al; het is een plek om met je queries te spelen. Hiermee kan je direct zien of de structuur van je query goed is of je kan de query laten uitvoeren om de resultaten in te zien.
-
-# Opdrachten
-
 ## 3. Maak een TrainerResolver
 
 ### A. Voeg een Trainer type toe aan je schema en pas de Runtime Wiring aan.
