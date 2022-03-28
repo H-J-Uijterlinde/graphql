@@ -32,12 +32,12 @@ In deze opdracht gaan we voor de query om alle pokemons op te halen een resolver
 
 Het GraphQL-Java project gebruikt voor resolvers het woord datafetchers. Dit is wat verwarrend, maar er wordt hetzelfde mee bedoeld.
 
-Wij hebben ervoor gekozen om resolvers (DataFetchers) onder te brengen in een class voor het type waarvoor ze een veld resolven, dus bijvoorbeeld de class QueryResolvers. Maar waar je ze definieert maakt uiteindelijk niet zoveel uit.
+Wij hebben ervoor gekozen om resolver functies (DataFetchers) onder te brengen in een class voor het type waarvoor ze een veld resolven, dus bijvoorbeeld de class QueryResolvers. Maar waar je ze definieert maakt uiteindelijk niet zoveel uit.
 
-Definieer een functie die een DataFetcher voor een lijst van Pokemon returned. Zie https://www.graphql-java.com/documentation/data-fetching voor een voorbeeld. DataFetcher is een functional interface, dus je kunt er ook voor kiezen om een lambda te returnen in plaats van een anonymous class.
+Definieer een functie die een DataFetcher voor een lijst van Pokemon returned. De repositories voor het ophalen van data zitten al in het project. Zie https://www.graphql-java.com/documentation/data-fetching voor een voorbeeld. DataFetcher is een functional interface, dus je kunt er ook voor kiezen om een lambda te returnen in plaats van een anonymous class.
 
 
-### D. Koppel de zojuist gemaakte functionaliteit aan door een runtimewiring toe te voegen in je configuratie.
+### D. Koppel de zojuist gemaakte resolver functie aan het juiste veld van het schema.
 
 We hebben nu een schema en we hebben een resolver om een veld uit ons schema te resolven. De volgende stap is het koppelen van onze resolver aan ons schema veld. 
 
