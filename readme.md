@@ -1,68 +1,28 @@
-In deze hands on gaan we de backend voor een PokeDex bouwen. Omdat we verwachten dat er in de loop van de tijd heel veel specifieke wensen vanuit de client gaan komen betreft de data die ze nodig hebben, is besloten om de data te onstluiten middels een GraphQL API.
+## 1. Voeg het Species type toe aan het schema, en implementeer de relaties tussen verschillende types.
+Nu we als het goed is een een werkende API hebben, waarmee we een lijstje van Pokemons kunnen ophalen, is het tijd om ons schema uit te breiden met een nieuw type, en om relaties te gaan leggen tussen verschillende types.
 
-De kern van ons model is simpel. Wij als pokemon trainers kunnen pokemons vangen, die pokemons kunnen we een naam geven, en deze pokemons zijn van een bepaalde soort (Pikachu, Charmander, etc..). We hebben dus drie classes in ons model; Trainer, Pokemon en Species.
+### A. Voeg het Species type toe aan het schema
+Vertaal de `Species` entiteit naar een nieuw type binnen je `schema.graphqls`. Vergeet daarbij niet de relatie met Pokemon te definieren. GraphQL kent ook enums, deze hebben we nu ook nodig. Omgekeerd kunnen we nu ook aan het Pokemon type een species veld toevoegen.
 
-Een trainer kan meerdere pokemon hebben, een pokemon kan maar van een trainer zijn, en maar van een soort. Van een bepaalde soort kunnen er meerdere pokemons op de wereld rond lopen.
+### B. Schrijf resolvers voor de "complexe" velden van het schema
+Voor velden in een graphql schema die niet resolven naar een scalar type (String, Int, Boolean, etc..) zullen ook resolvers gedefinieerd moeten worden. Het veld species op ons Pokemon type heeft bijvoorbeeld een resolver nodig om de Species van een Pokemon op te kunnen halen als de client daarom vraagt.
 
-Voor deze opdrachten gaan we gebruik maken van Java om onze GraphQL API te implementeren. We maken daarbij ook gebruik van het GraphQL-Java project, maar we gaan zo weinig mogelijk abstracties gebruiken om een beter beeld te krijgen van de verschillende aspecten van een GraphQL API.
+In ons eenvoudige schema zou dit zo simpel kunnen zijn als het aanroepen van de getter, maar die getter hebben we met opzet weggelaten. In productie applicaties, waar GraphQL vaak wordt gebruikt als een manier om meerdere microservices achter 1 API te bundelen, is het ophalen van relaties vaak minder eenvoudig. Relaties zouden zelfs door verschillende microservices beheerd kunnen worden.
 
-# Opdrachten
+Om een productie applicatie te simuleren gaan we zelf een resolver schrijven die voor een Pokemon de Species ophaalt. Net als voor de query uit opdracht 1 is deze resolver een functie die een `DataFetcher` returned. Uit de `dataFetchingEnvironment` kun je de parent entiteit halen waar deze resolver een veld voor resolved. Kijk hier: https://www.graphql-java.com/documentation/data-fetching#the-interesting-parts-of-the-datafetchingenvironment voor meer informatie, de `getSource()` methode is voor ons hier interessant.
 
-## 1. Implementeer een methode voor het ophalen van alle pokemon.
+Maak op dezelfde manier een resolver voor het pokemons veld van het type Species.
 
-De kern van GraphQL is het GraphQL schema. Het schema is als het ware de documentatie van de API en beschrijft welke operaties er allemaal mogelijk zijn, en welke data beschikbaar is.
+### C. Update de configuratie
+Om de twee resolvers die we net gemaakt hebben aan de juiste velden in het schema te koppelen zullen we nu de `runtimeWiring` die we in opdracht 1 opgezet hebben moeten uitbreiden.
 
-### A. Voeg voor de pokemon entiteit een type toe aan het schema
+### D. Test de schema uitbreidig.
+Je kunt de `allPokemons` query nu uitbreiden door ook het species veld in het resultaat te vragen. Als alles werkt krijg je nu voor alle pokemons ook zijn species terug.
 
-We gaan een begin maken met ons GraphQL schema. Voeg daarvoor een file genaamd `schema.graphqls` toe aan de resources van je project.
-
-Voeg voor de pokemon entiteit een type toe aan het schema, maar nog zonder de relaties met Trainer en Species.
-
-
-### B. Voeg een query type toe aan het schema met 1 veld voor het ophalen van alle pokemons.
-
-Binnen GraphQL is de conventie om al je queries binnen het type Query onder te brengen. Voeg dit type toe aan je schema, en definieer daarin een query voor het ophalen van alle pokemon. De return type van deze query is een lijst van objecten van het type pokemon (die we net hebben aangemaakt).
-
-
-### C. Bouw een resolver voor de query die we zojuist hebben gedefinieerd.
-
-In graphQL wordt het daadwerkelijk ophalen van data gedaan door resolvers. Dit geld uiteraard voor queries zelf. Maar ook voor het ophalen van bepaalde velden van andere types, zoals bijvoorbeeld het ophalen van alle pokemons van een trainer, zoals we straks nog zullen zien.
-
-In deze opdracht gaan we voor de query om alle pokemons op te halen een resolver schrijven, en we gaan deze resolver aan het juiste veld in ons GraphQL schema koppelen.
-
-Het GraphQL-Java project gebruikt voor resolvers het woord datafetchers. Dit is wat verwarrend, maar er wordt hetzelfde mee bedoeld.
-
-Wij hebben ervoor gekozen om resolver functies (DataFetchers) onder te brengen in een class voor het type waarvoor ze een veld resolven, dus bijvoorbeeld de class QueryResolvers. Maar waar je ze definieert maakt uiteindelijk niet zoveel uit.
-
-Definieer een functie die een DataFetcher voor een lijst van Pokemon returned. De repositories voor het ophalen van data zitten al in het project. Zie https://www.graphql-java.com/documentation/data-fetching voor een voorbeeld. DataFetcher is een functional interface, dus je kunt er ook voor kiezen om een lambda te returnen in plaats van een anonymous class.
+### E. Voeg een query toe voor het ophalen van Species voor een bepaald Pokemon type.
+Voor de game is het interessant om alle species van een bepaald Pokemon type op te halen. Dus bijvoorbeeld alle gras pokemon. 
+Voeg een veld toe aan het Query type voor deze wens. Deze query krijgt dus een input parameter.
+Ook voor deze query zullen we een resolver moeten schrijven. Inmiddels weet je als het goed is hoe dat moet. Via de `getArgument()` methode op de `dataFetchingEnvironment` krijg je toegang tot de arguments van de query.
 
 
-### D. Koppel de zojuist gemaakte resolver functie aan het juiste veld van het schema.
-
-We hebben nu een schema en we hebben een resolver om een veld uit ons schema te resolven. De volgende stap is het koppelen van onze resolver aan ons schema veld. 
-
-De GraphQL-Java library die wij gebruiken ondersteund twee manieren voor het creeren van een schema, door middel van SDL (Schema Definition Language) of programmatisch. Wij hebben ervoor gekozen om gebruikt te maken van SDL door het schema expliciet vast te leggen in een schema.graphqls file. 
-
-GraphQL-Java maakt gebruikt van zogenaamde runtimewiring om het schema, en de implementatie daarvan aan elkaar te koppelen. 
-
-Voeg de volgende configuratie toe aan je project:
-```
-    @Bean
-    public GraphQL graphQL() throws IOException {
-        var url = Resources.getResource("schema.graphqls");
-        var sdl = Resources.toString(url, Charsets.UTF_8);
-        var graphQLSchema = buildSchema(sdl);
-        return GraphQL.newGraphQL(graphQLSchema).build();
-    }
-
-    private GraphQLSchema buildSchema(String sdl) {
-        var typeRegistry = new SchemaParser().parse(sdl);
-        var runtimeWiring = buildWiring();
-        var schemaGenerator = new SchemaGenerator();
-        return schemaGenerator.makeExecutableSchema(typeRegistry, runtimeWiring);
-    }
-```
-
-Zoals je ziet zul je zelf nog de `buildWiring()` methode moeten implementeren, die een `RuntimeWiring` moet returnen. Zie https://www.graphql-java.com/documentation/schema#creating-a-schema-using-the-sdl voor een voorbeeld.
-
-naar [Opdracht 2](https://git.quintor.nl/staq/graphql-staq-2022/-/blob/opdrachten/2/readme.md)
+naar [Opdracht 4](https://git.quintor.nl/staq/graphql-staq-2022/-/blob/opdrachten/4/readme.md)
