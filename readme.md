@@ -1,4 +1,4 @@
-## 3. Maak een TrainerResolver
+## 4. Maak een TrainerResolver
 
 ### A. Voeg een Trainer type toe aan je schema en pas de Runtime Wiring aan.
 
