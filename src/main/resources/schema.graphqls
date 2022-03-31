@@ -6,7 +6,7 @@ type Query {
 }
 
 type Mutation {
-    createSpecies(species: CreateSpeciesInput!): Species
+    createSpecies(species: CreateSpeciesInput!): Species @auth(role: "admin")
     createTrainer(trainer: CreateTrainerInput!): Trainer
     catchPokemon(trainerId: ID!, pokemon: CreatePokemonInput!): Trainer
 }
@@ -36,7 +36,7 @@ type Species {
     id: ID
     name: String
     type: PokemonType
-    pokemons: [Pokemon] @auth(role: "admin")
+    pokemons: [Pokemon]
 }
 
 enum PokemonType {

@@ -4,9 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "of")
 @Getter
-@Setter
 public class AuthContext {
     private String role;
 }

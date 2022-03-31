@@ -21,7 +21,7 @@ public class CustomInvocation implements GraphQLInvocation {
 
     @Override
     public CompletableFuture<ExecutionResult> invoke(GraphQLInvocationData invocationData, WebRequest webRequest) {
-        AuthContext authContext = new AuthContext(webRequest.getHeader("role"));
+        AuthContext authContext = AuthContext.of(webRequest.getHeader("role"));
         ExecutionInput executionInput = ExecutionInput.newExecutionInput()
                 .query(invocationData.getQuery())
                 .graphQLContext(Map.of("auth", authContext))
