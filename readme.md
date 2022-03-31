@@ -28,5 +28,6 @@ Voeg een mutation toe voor het aanmaken van nieuwe species.
 
 ### F. Test je werk in de playground
 Als je alles goed gedaan hebt kun je nu nieuwe trainers registreren, pokemon vangen, en nieuwe species toevoegen. Ga naar de playground, en test onze nieuwe mutations uit.
+Als je werkende functies in de playground hebt geschreven kan het handig zijn om deze toe tevoegen aan de playground configuratie van je project, zodat deze voor ingevuld staan bij het opnieuw opstarten van de applicatie. Maak hiervoor eventueel een nieuw playground tabblad 'mutations'.
 
 naar [Opdracht 6](https://git.quintor.nl/staq/graphql-staq-2022/-/blob/opdrachten/6/readme.md)
