@@ -30,3 +30,5 @@ Je kan hier een zelf gedefinieerde query schrijven die jouw query aanroept in je
 
 Navigeer naar je playground. Je zult nu zien dat je query die gedefinieerd is in `playground_queries.graphqls` getoont wordt in je tabblad.
 Verifieer dat je bij het aanroepen van allPokemon op dit moment drie pokemon als resultaat krijgt.
+
+naar [Opdracht 3](https://git.quintor.nl/staq/graphql-staq-2022/-/blob/opdrachten/3/readme.md)
