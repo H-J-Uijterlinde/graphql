@@ -2,6 +2,12 @@ query GET_POKEMONS {
     allPokemon {
         id
         name
+        species {
+            name
+        }
+        trainer {
+            name
+        }
     }
 }
 
@@ -35,7 +41,3 @@ query GET_TRAINER_BY_NAME($trainerName: String) {
         }
     }
 }
-
-
-
-

@@ -56,6 +56,7 @@ public class GraphQLConfiguration {
                         .dataFetcher("allTrainers", queryResolvers.getAllTrainers())
                         .dataFetcher("trainerByName", queryResolvers.getTrainerByName()))
                 .type(newTypeWiring("Trainer")
+                        .dataFetcher("trainer", pokemonResolvers.getTrainerByPokemon())
                         .dataFetcher("pokemons", trainerResolvers.getPokemonByTrainer()))
                 .type(newTypeWiring("Species")
                         .dataFetcher("pokemons", speciesResolvers.getPokemonBySpecies()))
