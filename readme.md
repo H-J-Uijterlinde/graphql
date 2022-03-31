@@ -24,5 +24,8 @@ Voor de game is het interessant om alle species van een bepaald Pokemon type op 
 Voeg een veld toe aan het Query type voor deze wens. Deze query krijgt dus een input parameter.
 Ook voor deze query zullen we een resolver moeten schrijven. Inmiddels weet je als het goed is hoe dat moet. Via de `getArgument()` methode op de `dataFetchingEnvironment` krijg je toegang tot de arguments van de query.
 
+### F. Test je werk in de playground
+We gaan het ophalen van alle species per Pokemon type testen door de query hiervoor uit te voeren in de playground. Je kunt de query op twee manieren definieren, ten eerste door een waarde voor de variabele te "hardcoden" maar het is mooier om een query te schrijven waarbij je de argumenten dynamisch mee kunt geven. Kijk op https://graphql.org/learn/queries/ onder het kopje "Variables" hoe je dat kunt doen. 
+We kunnen nu ook direct testen of de resolver voor het pokemons veld op je Species type werkt, door in het resultaat van de query te vragen om het veld pokemons.
 
 naar [Opdracht 4](https://git.quintor.nl/staq/graphql-staq-2022/-/blob/opdrachten/4/readme.md)
