@@ -1,4 +1,4 @@
-## 6. Directives
+## 7. Subscriptions
 
 ### A. 
 
