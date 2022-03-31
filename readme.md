@@ -1,5 +1,5 @@
-## 4. Mutations
+## 4. Directives
 
 ### A. 
 
-naar [Opdracht 6](https://git.quintor.nl/staq/graphql-staq-2022/-/blob/opdrachten/6/readme.md)
+naar [Opdracht 7](https://git.quintor.nl/staq/graphql-staq-2022/-/blob/opdrachten/7/readme.md)
