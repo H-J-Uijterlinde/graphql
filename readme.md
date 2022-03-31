@@ -30,3 +30,5 @@ Navigeer naar je playground. Bij het uitvoeren van je nieuwe query zal de playgr
 
 Momenteel kunnen we de Pokemon van een trainer opvragen, maar nog niet de trainer van een Pokemon. Voeg het trainer veld toe aan de type Pokemon in je schema.
 Maak hiervoor een functie in je Pokemon Resolver en verifieer de werking hiervan in je playground door een trainer op te vragen vanuit een Pokemon.
+
+naar [Opdracht 5](https://git.quintor.nl/staq/graphql-staq-2022/-/blob/opdrachten/5/readme.md)
