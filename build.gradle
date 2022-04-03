@@ -21,15 +21,18 @@ repositories {
 dependencies {
 	// Spring Boot starters
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
 	// GraphQL java
 	implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:12.0.0'
 	implementation 'com.graphql-java:graphql-java'
 	implementation 'com.graphql-java:graphql-java-spring-boot-starter-webmvc:2.0'
 
+	// rx java
+	implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
+
 	// Guava
-	implementation 'com.google.guava:guava:26.0-jre'
+	implementation 'com.google.guava:guava:31.1-jre'
 
 	// H2
 	runtimeOnly 'com.h2database:h2'

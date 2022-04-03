@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import graphql.ExecutionInput;
 import graphql.GraphQL;
+import graphql.execution.SubscriptionExecutionStrategy;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
@@ -30,6 +31,7 @@ public class GraphQLConfiguration {
     private final SpeciesResolvers speciesResolvers;
     private final PokemonResolvers pokemonResolvers;
     private final MutationResolvers mutationResolvers;
+    private final SubscriptionResolvers subscriptionResolvers;
     private final AuthDirective authDirective;
 
     @Bean
@@ -37,7 +39,9 @@ public class GraphQLConfiguration {
         var url = Resources.getResource("schema.graphqls");
         var sdl = Resources.toString(url, Charsets.UTF_8);
         var graphQLSchema = buildSchema(sdl);
-        return GraphQL.newGraphQL(graphQLSchema).build();
+        return GraphQL.newGraphQL(graphQLSchema)
+                .subscriptionExecutionStrategy(new SubscriptionExecutionStrategy())
+                .build();
     }
 
     private GraphQLSchema buildSchema(String sdl) {
@@ -66,6 +70,8 @@ public class GraphQLConfiguration {
                         .dataFetcher("createSpecies", mutationResolvers.createSpecies())
                         .dataFetcher("createTrainer", mutationResolvers.createTrainer())
                         .dataFetcher("catchPokemon", mutationResolvers.catchPokemon()))
+                .type(newTypeWiring("Subscription")
+                        .dataFetcher("createSpecies", subscriptionResolvers.createSpeciesSubscription()))
                 .build();
     }
 }

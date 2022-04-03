@@ -1,6 +1,7 @@
 package nl.quintor.pokedex.resolvers;
 
 import graphql.schema.DataFetcher;
+import io.reactivex.subjects.PublishSubject;
 import lombok.RequiredArgsConstructor;
 import nl.quintor.pokedex.model.Pokemon;
 import nl.quintor.pokedex.model.Species;
@@ -18,13 +19,17 @@ public class MutationResolvers {
     private final TrainerRepository trainerRepository;
     private final SpeciesRepository speciesRepository;
 
+    private final PublishSubject<Species> createSpeciesPublishSubject = PublishSubject.create();
+
     public DataFetcher<Species> createSpecies() {
         return dataFetchingEnvironment -> {
             Map<String, Object> createSpeciesInput = dataFetchingEnvironment.getArgument("species");
             Species species = new Species();
             species.setName((String) createSpeciesInput.get("name"));
             species.setType(PokemonType.fromString((String) createSpeciesInput.get("type")));
-            return speciesRepository.save(species);
+            species = speciesRepository.save(species);
+            createSpeciesPublishSubject.onNext(species);
+            return species;
         };
     }
 
@@ -51,5 +56,9 @@ public class MutationResolvers {
             trainer.addPokemon(pokemon);
             return trainerRepository.save(trainer);
         };
+    }
+
+    public PublishSubject<Species> getCreateSpeciesPublishSubject() {
+        return createSpeciesPublishSubject;
     }
 }

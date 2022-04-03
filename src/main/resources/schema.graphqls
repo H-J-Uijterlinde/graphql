@@ -1,3 +1,9 @@
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
+
 type Query {
     allPokemon: [Pokemon]
     allTrainers: [Trainer]
@@ -9,6 +15,10 @@ type Mutation {
     createSpecies(species: CreateSpeciesInput!): Species @auth(role: "admin")
     createTrainer(trainer: CreateTrainerInput!): Trainer
     catchPokemon(trainerId: ID!, pokemon: CreatePokemonInput!): Trainer
+}
+
+type Subscription {
+    createSpecies: Species!
 }
 
 input CreateSpeciesInput {

@@ -1,0 +1,7 @@
+subscription createSpeciesSubscription {
+    createSpecies {
+        id
+        name
+        type
+    }
+}
