@@ -71,7 +71,7 @@ public class GraphQLConfiguration {
                         .dataFetcher("createTrainer", mutationResolvers.createTrainer())
                         .dataFetcher("catchPokemon", mutationResolvers.catchPokemon()))
                 .type(newTypeWiring("Subscription")
-                        .dataFetcher("createSpecies", subscriptionResolvers.createSpeciesSubscription()))
+                        .dataFetcher("speciesCreated", subscriptionResolvers.speciesCreated()))
                 .build();
     }
 }

@@ -19,7 +19,7 @@ public class SubscriptionResolvers {
         createSpeciesFlowable = connectableObservable.toFlowable(BackpressureStrategy.BUFFER);
     }
 
-    public DataFetcher<Flowable<Species>> createSpeciesSubscription() {
+    public DataFetcher<Flowable<Species>> speciesCreated() {
         return dataFetchingEnvironment -> createSpeciesFlowable;
     }
 }

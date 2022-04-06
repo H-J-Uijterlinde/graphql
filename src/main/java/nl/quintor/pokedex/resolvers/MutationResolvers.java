@@ -27,6 +27,7 @@ public class MutationResolvers {
             Species species = new Species();
             species.setName((String) createSpeciesInput.get("name"));
             species.setType(PokemonType.fromString((String) createSpeciesInput.get("type")));
+
             species = speciesRepository.save(species);
             createSpeciesPublishSubject.onNext(species);
             return species;
