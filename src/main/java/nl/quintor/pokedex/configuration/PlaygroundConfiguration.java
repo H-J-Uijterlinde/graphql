@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ResourceLoader;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Configuration
@@ -26,17 +28,24 @@ public class PlaygroundConfiguration {
     }
 
     private List<PlaygroundTab> playgroundTabs() {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("role", "admin");
+
         var playgroundPokemonTab = new PlaygroundTab();
         playgroundPokemonTab.setName("Queries");
-        playgroundPokemonTab.setQuery(resourceLoader.getResource("classpath:playground/playground_queries.graphqls"));
-        playgroundPokemonTab.setVariables(resourceLoader.getResource("classpath:playground/variables.json"));
+        playgroundPokemonTab.setHeaders(headers);
+        playgroundPokemonTab.setQuery(resourceLoader.getResource("classpath:playground/queries.graphqls"));
+        playgroundPokemonTab.setVariables(resourceLoader.getResource("classpath:playground/query_variables.json"));
 
         var mutationTab = new PlaygroundTab();
         mutationTab.setName("Mutations");
+        mutationTab.setHeaders(headers);
         mutationTab.setQuery(resourceLoader.getResource("classpath:playground/mutations.graphqls"));
+        mutationTab.setVariables(resourceLoader.getResource("classpath:playground/mutation_variables.json"));
 
         var subscriptionTab = new PlaygroundTab();
         subscriptionTab.setName("Subscriptions");
+        subscriptionTab.setHeaders(headers);
         subscriptionTab.setQuery(resourceLoader.getResource("classpath:playground/subscriptions.graphqls"));
 
         return List.of(playgroundPokemonTab, mutationTab, subscriptionTab);

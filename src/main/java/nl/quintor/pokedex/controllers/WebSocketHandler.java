@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @RequiredArgsConstructor
 @Slf4j
 @Component
-public class SubscriptionHandler extends TextWebSocketHandler implements SubProtocolCapable {
+public class WebSocketHandler extends TextWebSocketHandler implements SubProtocolCapable {
     private final AtomicReference<Subscription> subscriptionRef = new AtomicReference<>();
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final GraphQL graphQL;

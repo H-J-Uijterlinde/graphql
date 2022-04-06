@@ -1,0 +1,11 @@
+{
+  "species": {
+    "name": "Test",
+    "type": "ELECTRIC"
+  },
+  "trainerId": "1",
+  "pokemon": {
+    "speciesId": "1",
+    "name": "Pika"
+  }
+}
