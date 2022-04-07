@@ -1,6 +1,5 @@
 package nl.quintor.pokedex.controllers;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import graphql.ExecutionInput;
 import graphql.ExecutionResult;
@@ -21,7 +20,6 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 @RequiredArgsConstructor
@@ -38,29 +36,23 @@ public class WebSocketHandler extends TextWebSocketHandler implements SubProtoco
     }
 
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
+    public void afterConnectionClosed(@NotNull WebSocketSession session, @NotNull CloseStatus status) {
         log.info("Server connection closed: {}", status);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        String request = message.getPayload();
-        log.info("Server received: {}", request);
+    public void handleTextMessage(@NotNull WebSocketSession session, TextMessage message) throws Exception {
+        SubscriptionRequest subscriptionRequest = objectMapper.readValue(message.getPayload(), SubscriptionRequest.class);
 
-        TypeReference<Map<String, Object>> typeReference = new TypeReference<>() {};
-        Map<String, Object> requestAsMap = objectMapper.readValue(request, typeReference);
-
-        if (!requestAsMap.get("type").equals("start")) {
+        if (!subscriptionRequest.getType().equals("start")) {
             return;
         }
 
-        String requestId = (String) requestAsMap.get("id");
-        Map<String, String> payloadAsMap = (Map<String, String>) requestAsMap.get("payload");
+        SubscriptionRequest.Payload payload = subscriptionRequest.getPayload();
 
         ExecutionInput executionInput = ExecutionInput.newExecutionInput()
-                .query(payloadAsMap.get("query"))
-                .operationName(payloadAsMap.get("operationName"))
+                .query(payload.getQuery())
+                .operationName(payload.getOperationName())
                 .build();
 
         ExecutionResult executionResult = graphQL.execute(executionInput);
@@ -70,7 +62,7 @@ public class WebSocketHandler extends TextWebSocketHandler implements SubProtoco
             @Override
             public void onSubscribe(Subscription s) {
                 subscriptionRef.set(s);
-                request(1);
+                request();
             }
 
             @Override
@@ -78,11 +70,14 @@ public class WebSocketHandler extends TextWebSocketHandler implements SubProtoco
                 log.info("On next called on publisher");
                 try {
                     Object update = executionResult.getData();
-                    session.sendMessage(new TextMessage(objectMapper.writeValueAsString(Map.of("payload", update, "id", requestId, "type", "data"))));
+                    SubscriptionResponse response = new SubscriptionResponse();
+                    response.setId(subscriptionRequest.getId());
+                    response.setPayload(update);
+                    session.sendMessage(new TextMessage(objectMapper.writeValueAsString(response)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                request(1);
+                request();
             }
 
             @Override
@@ -108,19 +103,20 @@ public class WebSocketHandler extends TextWebSocketHandler implements SubProtoco
     }
 
     @Override
-    public void handleTransportError(WebSocketSession session, Throwable exception) {
+    public void handleTransportError(@NotNull WebSocketSession session, Throwable exception) {
         log.info("Server transport error: {}", exception.getMessage());
     }
 
+    @NotNull
     @Override
     public List<String> getSubProtocols() {
         return Collections.singletonList("graphql-ws");
     }
 
-    private void request(int n) {
+    private void request() {
         Subscription subscription = subscriptionRef.get();
         if (subscription != null) {
-            subscription.request(n);
+            subscription.request(1);
         }
     }
 }
