@@ -19,6 +19,18 @@ Voeg de volgende regels toe aan je `build.gradle` onder de dependencies:
 implementation 'org.springframework.boot:spring-boot-starter-websocket'
 implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
 ```
+In de `GraphQLConfiguration` moet de `GraphQL` bean vervangen worden door de volgende:
+```
+    @Bean
+    public GraphQL graphQL() throws IOException {
+        var url = Resources.getResource("schema.graphqls");
+        var sdl = Resources.toString(url, Charsets.UTF_8);
+        var graphQLSchema = buildSchema(sdl);
+        return GraphQL.newGraphQL(graphQLSchema)
+                .subscriptionExecutionStrategy(new SubscriptionExecutionStrategy())
+                .build();
+    }
+```
 
 Voeg onder de configuratie package de volgende class toe:
 ```
