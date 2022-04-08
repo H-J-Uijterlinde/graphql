@@ -23,7 +23,7 @@ We kunnen de playground onderverdelen in meerdere tabs indien gewenst. Je zou bi
 In een playground tab kunnen we een query file opgeven.
 In deze files kan je queries schrijven die automatisch in je tabblad getoont worden. 
 
-Maak hiervoor de `playground_queries.graphqls` file aan en plaats deze in `resources/playground`.
+Maak hiervoor de `playground_queries.graphqls` file aan en plaats deze in `resources/playground`. Voeg de `PlaygroundTab` toe aan je `PlaygroundController` configuratie.
 Je kan hier een zelf gedefinieerde query schrijven die jouw query aanroept in je schema van opdracht 1.
 
 ### D. Navigeer naar je playground en test je automatisch getoonde query uit
