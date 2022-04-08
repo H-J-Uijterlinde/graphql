@@ -63,6 +63,6 @@ Voeg de volgende configuratie toe aan je project:
     }
 ```
 
-Zoals je ziet zul je zelf nog de `buildWiring()` methode moeten implementeren, die een `RuntimeWiring` moet returnen. Zie https://www.graphql-java.com/documentation/schema#creating-a-schema-using-the-sdl voor een voorbeeld.
+Zoals je ziet zul je zelf nog de `buildWiring()` methode moeten implementeren, die een `RuntimeWiring` moet returnen. Zie https://www.graphql-java.com/documentation/schema#creating-a-schema-using-the-sdl voor een voorbeeld. Voeg type "Query" toe en plaats hier de DataFetcher van allPokemon aan toe
 
 naar [Opdracht 2](https://git.quintor.nl/staq/graphql-staq-2022/-/blob/opdrachten/2/readme.md)
