@@ -12,6 +12,6 @@ insert into trainer
            (3, 'Misty');
 
 insert into pokemon
-    values (1, 'Pikachu', 1, 1),
-           (2, 'Onix', 5, 2),
-           (3, 'Staryu', 6, 3);
+    values (1, 'Pika', 1, 1),
+           (2, 'Steenrol', 5, 2),
+           (3, 'Patrick Ster', 6, 3);
