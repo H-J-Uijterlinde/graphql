@@ -7,7 +7,7 @@ Om real-time je GraphQL queries te testen gaan we onze eigen playground optuigen
 ### A. Maak een PlaygroundController configuration bean aan
 
 Om de PlaygroundController aan te kunnen maken zullen we eerst een dependency moeten toevoegen. 
-Voeg de `com.graphql-java-kickstart:graphql-spring-boot-starter` dependency toe aan je dependencies. 
+Voeg de `com.graphql-java-kickstart:graphql-spring-boot-starter:12.0.0` dependency toe aan je dependencies. 
 
 Maak een playground configuration class aan en definieer hier een PlaygroundController bean.
 
