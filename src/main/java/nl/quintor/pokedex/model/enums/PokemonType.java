@@ -18,6 +18,7 @@ public enum PokemonType {
     BUG,
     GHOST,
     STEEL,
+    STONE,
     DRAGON,
     DARK,
     FAIRY;
